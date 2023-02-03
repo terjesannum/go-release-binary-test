@@ -1,0 +1,28 @@
+on:
+  push:
+    tags:
+      - '[0-9]+'
+
+jobs:
+  releases-matrix:
+    name: Release Go binaries
+    permissions: write
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+        exclude:
+          - goarch: arm64
+            goos: windows
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get version
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - uses: wangyoucao577/go-release-action@v1.35
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            goos: ${{ matrix.goos }}
+            goarch: ${{ matrix.goarch }}
+            release_tag: ${{ steps.get_version.outputs.version }}
