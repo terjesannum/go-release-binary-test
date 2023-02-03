@@ -10,18 +10,10 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: Get version
-        id: get_version
-        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
       - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.get_version.outputs.version }}
-          release_name: Release ${{ steps.get_version.outputs.version }}
-          draft: false
-          prerelease: false
+          makeLatest: true
   releases-matrix:
     name: Release Go binaries
     needs: create-release
