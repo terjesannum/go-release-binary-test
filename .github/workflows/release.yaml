@@ -38,3 +38,4 @@ jobs:
             goos: ${{ matrix.goos }}
             goarch: ${{ matrix.goarch }}
             release_tag: ${{ steps.get_version.outputs.version }}
+            ldflags: -X main.version=${{ steps.get_version.outputs.version }}
