@@ -2,6 +2,13 @@ package main
 
 import "fmt"
 
+var (
+	version string
+)
+
 func main() {
-	fmt.Println("Hello")
+	if version == "" {
+		version = "n/a"
+	}
+	fmt.Printf("Hello %s\n", version)
 }
