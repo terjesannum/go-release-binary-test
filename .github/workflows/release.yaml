@@ -36,9 +36,10 @@ jobs:
       - name: Get version
         id: get_version
         run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      - uses: wangyoucao577/go-release-action@v1.35
+      - uses: wangyoucao577/go-release-action@v1.37
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
+            goversion: ./go.mod
             goos: ${{ matrix.goos }}
             goarch: ${{ matrix.goarch }}
             release_tag: ${{ steps.get_version.outputs.version }}
