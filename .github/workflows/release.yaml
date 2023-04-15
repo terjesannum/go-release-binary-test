@@ -39,7 +39,7 @@ jobs:
       - uses: wangyoucao577/go-release-action@v1.37
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
-            goversion: ./go.mod
+            goversion: 1.19.5
             goos: ${{ matrix.goos }}
             goarch: ${{ matrix.goarch }}
             release_tag: ${{ steps.get_version.outputs.version }}
